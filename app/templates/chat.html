@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="d-sm-flex flex-sm-row align-items-center">
+        <div class="me-auto p-2">
+            <h1 id="page-header-chat" data-position={{ position }} data-role={{ role }}>
+                {{ title }}
+            </h1>
+        </div>
+        <div class="p-2 d-none" id="scroll-down-div">
+            <a id="scroll-down" onclick="scrollBottom(this)">
+                <i class="fa-solid fa-angles-down fa-2xl" id="scroll-down-icon"></i>
+            </a>
+        </div>
+        <div class="p-2 d-none" id="load-messages-div">
+            <a id="load-messages" onclick="toggleLoadPreviousMessages(this)" data-loading="False" style="pointer-events: none">
+                <i class="fa-solid fa-arrows-rotate fa-2xl" id="load-messages-icon"></i>
+            </a>
+        </div>
+        <div class="p-2">
+            <a onclick=toggleDisplay() id="chat-icon-anchor">
+                <i class="fa-solid fa-message fa-2xl" id="chat-icon"></i>
+                <span class="position-absolute translate-middle p-2 bg-danger border border-light rounded-circle invisible" id="chat-icon-badge"></span>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% if role_loops | length > 0 %}
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for role_loop in role_loops %}
+                <div class="col">
+                    <div class="shadow card h-100" id={{ role_loop.loop.name }} data-full-access={{ role_loop.full_access }}>
+                        <div class="card-header text-center">
+                            <h5 class="card-title" id="loop-card-title">{{ role_loop.loop.name }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{ role_loop.loop.description }}
+                            </p>
+                            <a class="stretched-link" onclick=changeLoopState(this) id="loop-state-link"></a>
+                        </div>
+                        <div class="card-footer align-items-center">
+                            {% if role_loop.full_access %}
+                                <i class="fa-solid fa-glasses fa-lg" style="vertical-align: middle"></i>
+                                <i class="fa-solid fa-pencil fa-lg" style="vertical-align: middle"></i>
+                            {% else %}
+                                <i class="fa-solid fa-glasses fa-lg" style="vertical-align: middle"></i>
+                            {% endif %}
+                            <div class="float-end" id="off-icon">
+                                <a onclick=setLoopOff(this) id="loop-state-link">
+                                    <i class="fa-solid fa-power-off fa-lg" style="vertical-align: middle"></i>
+                                </a>
+                                <!--button class="btn btn-light btn-sm" onclick=setLoopOff() type="button">OFF</button-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+                </div>
+            {% else %}
+                <h2>No available loops yet. Please contact administrator!</h2>
+            {% endif %}
+        </div>
+        <div class="col-4 d-none" id="chat-div">
+            <div class="card d-flex rounded shadow" id="chat" style="height: 75vh">
+                <div class="card-body overflow-auto" id="chat-body" style="position: relative">
+                    <!--Here the chat messages are added when sending or receiving!-->
+                </div>
+
+                <div class="card-footer text-muted d-flex justify-content-start align-items-center"
+                     style="background: white">
+                    <textarea class="form-control" id="chatFormControlTextArea" rows="1" placeholder="Type message" disabled></textarea>
+                    <label for="chatFormControlTextArea"></label>
+                    <a class="ms-3 nohover" id="send-icon">
+                        <i class="fa-solid fa-paper-plane fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block addScripts %}
+    <script src="/static/jquery/jquery.min.js"></script>
+    <script src="/static/socketio/socket.io.js"></script>
+    <script src="/static/chat.js"></script>
+    <script src="/static/messaging.js"></script>
+{% endblock %}

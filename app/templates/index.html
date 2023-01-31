@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ current_user.username }}!</h1>
+    {% if positions | length > 0 %}
+        <div class="vstack gap-2 col-md-5 mx-auto">
+            {% for position in positions %}
+                <a role="button" class="btn btn-secondary" href={{ url_for('chats', positionlink=position.name) }}>
+                    <p>
+                        <b>{{ position.name }}</b>
+                        <br>
+                        {{ position.description }}
+                    </p>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h2>No available positions yet. Please contact administrator!</h2>
+    {% endif %}
+{% endblock %}

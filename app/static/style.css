@@ -1,0 +1,77 @@
+/* || General styles */
+html, body {
+    margin: 0;
+}
+
+
+/* || Header and Main Navigation */
+.navbar {
+    min-height: 60px;
+}
+
+.navbar-brand {
+    font-size: x-large;
+}
+
+.nav-item {
+    font-size: large;
+}
+
+
+/* || Index styling */
+.vstack {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-self: stretch;
+}
+
+
+/* || Chat styling */
+.card {
+    background: white;
+    color: black;
+}
+
+#off-icon:hover {
+    color: crimson;
+}
+
+#off-icon {
+    z-index: 2;
+    position: relative;
+}
+
+#chat .form-control {
+    border-color: transparent;
+}
+
+#chat .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+#chatFormControlTextArea {
+    resize: none;
+    outline: none;
+}
+
+#chat-icon:hover {
+    color: cornflowerblue;
+}
+
+#load-messages-icon:hover {
+    color: cornflowerblue;
+}
+
+#scroll-down-icon:hover {
+    color: cornflowerblue;
+}
+
+#send-icon {
+    color: black;
+}
+
+#send-icon:not(.nohover):hover {
+    color: cornflowerblue;
+}
